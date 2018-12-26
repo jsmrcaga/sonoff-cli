@@ -1,6 +1,6 @@
 {
   "name": "sonoff-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A simple Sonoff Switch registering cli",
   "main": "sonoff.js",
   "preferGlobal": true,
