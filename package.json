@@ -1,0 +1,25 @@
+{
+  "name": "sonoff-cli",
+  "version": "0.0.1",
+  "description": "A simple Sonoff Switch registering cli",
+  "main": "sonoff.js",
+  "preferGlobal": true,
+  "scripts": {
+    "test": "mocha"
+  },
+  "bin": {
+    "sonoff": "sonoff.js"
+  },
+  "keywords": [
+    "sonoff", "cli"
+  ],
+  "author": "Jo Colina <jo@jocolina.com>",
+  "license": "MIT",
+  "dependencies": {
+    "fishingrod": "^4.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0"
+  }
+}
