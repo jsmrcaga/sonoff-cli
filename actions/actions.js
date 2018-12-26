@@ -54,7 +54,7 @@ actions['auto'] = function(options) {
 			api_key: response.apikey
 		};
 
-		console.log('Got Sonoff device info!', device);
+		console.log('Got Sonoff device info!', device, '\n');
 
 		let apinfo = {
 			version: 4,
@@ -64,7 +64,7 @@ actions['auto'] = function(options) {
 			port: parseInt(wsPort)
 		};
 
-		console.log('Setting sonoff device AP info...', apinfo);
+		console.log('Setting sonoff device AP info...', apinfo, '\n');
 		return fishingrod.fish({
 			method: 'POST',
 			host: sonoff,
@@ -84,31 +84,31 @@ actions['auto'] = function(options) {
 
 		console.log('********************************');
 		console.log('Device configured successfully!!');
-		console.log('********************************');
+		console.log('********************************\n');
 
 		if(options.o) {
-			console.log('\n Sending result to desired output:', options.o)
 			let url = URL.parse(options.o);
+			console.log('\n Sending result to desired output:', url, '\n');
 
 			return fishingrod.fish({
 				https: url.protocol === 'https:',
 				method: 'POST',
 				host: url.hostname,
-				port: url.port,
-				path: url.path
+				port: url.port || 80,
+				path: url.path || '/'
 			}).then(res => {
 				console.log('********************************');
 				console.log('Output response was: (', res.status, ')');
 				console.log(res.headers);
 				console.log(res.response);
-				console.log('********************************');
+				console.log('********************************\n');
 			}).catch(e => {
-				console.error('Could not send output to server', e);
+				console.error('Could not send output to server', e, '\n');
 			});
 		}
 
 	}).catch(e => {
-		console.error('Could not configure device properly', e);
+		console.error('Could not configure device properly', e, '\n');
 		process.exit(1);
 	});
 };
