@@ -40,7 +40,8 @@ actions['auto'] = function(options) {
 
 	fishingrod.fish({
 		host: sonoff,
-		path: '/device'
+		path: '/device',
+		timeout: 1000
 	}).then(res => {
 		if(res.status !== 200) {
 			console.error('Could not get device info', res.status, res.response);
@@ -60,7 +61,7 @@ actions['auto'] = function(options) {
 			ssid,
 			password,
 			serverName: wsServer,
-			port: wsPort
+			port: parseInt(wsPort)
 		};
 
 		console.log('Setting sonoff device AP info...', apinfo);
@@ -71,7 +72,8 @@ actions['auto'] = function(options) {
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			data: apinfo
+			data: JSON.stringify(apinfo),
+			timeout: 10000
 		});
 
 	}).then(res => {
@@ -85,7 +87,7 @@ actions['auto'] = function(options) {
 		console.log('********************************');
 
 		if(options.o) {
-			console.log('\n Sending result to desired output', options.o)
+			console.log('\n Sending result to desired output:', options.o)
 			let url = URL.parse(options.o);
 
 			return fishingrod.fish({
@@ -100,6 +102,8 @@ actions['auto'] = function(options) {
 				console.log(res.headers);
 				console.log(res.response);
 				console.log('********************************');
+			}).catch(e => {
+				console.error('Could not send output to server', e);
 			});
 		}
 
